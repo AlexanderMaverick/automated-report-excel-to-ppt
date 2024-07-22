@@ -1,9 +1,10 @@
 const ExcelJS = require("exceljs");
 const PptxGenJS = require("pptxgenjs");
+const path = require("path");
 
 // Ruta del archivo Excel
 const excelPath =
-  "assetsCONTROL 678_2024-1 - EVALUACIÓN - STP - CAMIÓN ALJIBE - LYLG-45.xlsx";
+  "assets/CONTROL 678_2024-1 - EVALUACIÓN - STP - CAMIÓN ALJIBE - LYLG-45.xlsx";
 
 // Crear una nueva presentación
 const pres = new PptxGenJS();
@@ -17,10 +18,10 @@ workbook.xlsx
     const rows = [];
 
     worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
-      rows.push(row.getCell(1).value); // Obtener el valor de la primera columna
+      rows.push(row.getCell(6).value); // Obtener el valor de la primera columna
     });
 
-    for (let i = 0; i < rows.length; i += 2) {
+    for (let i = 9; i < rows.length; i += 2) {
       const slide = pres.addSlide();
 
       // Añadir la primera actividad (arriba izquierda)
@@ -44,8 +45,11 @@ workbook.xlsx
       }
     }
 
+    // Determinar la ruta del archivo PowerPoint
+    const excelDir = path.dirname(excelPath); // Obtener el directorio del archivo Excel
+    const pptPath = path.join(excelDir, "archivo.pptx"); // Construir la ruta del archivo PowerPoint
+
     // Guardar la presentación en PowerPoint
-    const pptPath = "ruta/al/archivo.pptx";
     pres
       .writeFile({ fileName: pptPath })
       .then(() => {
