@@ -8,6 +8,8 @@ const excelPath =
 
 // Crear una nueva presentación
 const pres = new PptxGenJS();
+pres.defineLayout({ name: "Carta", width: 8.5, height: 11 });
+pres.layout = "Carta";
 
 // Leer el archivo Excel
 const workbook = new ExcelJS.Workbook();
@@ -21,30 +23,34 @@ workbook.xlsx
       rows.push(row.getCell(6).value); // Obtener el valor de la primera columna
     });
 
-    for (let i = 9; i < rows.length; i += 2) {
+    for (let i = 7; i < rows.length; i += 2) {
       const slide = pres.addSlide();
+
+      // Establecer el color de fondo de la diapositiva
+      slide.background = { color: "616161" }; // Cambia 'FFFFFF' por el color que desees
 
       // Añadir la primera actividad (arriba izquierda)
       if (rows[i]) {
-        slide.addText(rows[i], {
-          x: 0.5,
-          y: 0.5,
-          fontSize: 24,
-          align: "left",
-        });
+        slide.addText(
+          [
+            { text: `${i + 1}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
+            { text: rows[i], options: { color: "FFFFFF", fontSize: 14 } }, // Color del texto
+          ],
+          { x: 0.5, y: 0.5, align: "left" }
+        );
       }
 
       // Añadir la segunda actividad (centro izquierda)
       if (rows[i + 1]) {
-        slide.addText(rows[i + 1], {
-          x: 0.5,
-          y: 2.5,
-          fontSize: 24,
-          align: "left",
-        });
+        slide.addText(
+          [
+            { text: `${i + 2}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
+            { text: rows[i + 1], options: { color: "FFFFFF", fontSize: 14 } }, // Color del texto
+          ],
+          { x: 0.5, y: 5.5, align: "left" }
+        );
       }
     }
-
     // Determinar la ruta del archivo PowerPoint
     const excelDir = path.dirname(excelPath); // Obtener el directorio del archivo Excel
     const pptPath = path.join(excelDir, "archivo.pptx"); // Construir la ruta del archivo PowerPoint
