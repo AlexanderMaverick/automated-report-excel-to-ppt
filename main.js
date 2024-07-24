@@ -23,6 +23,12 @@ workbook.xlsx
       rows.push(row.getCell(6).value); // Obtener el valor de la primera columna
     });
 
+    const totalPages = Math.ceil((rows.length - 7) / 2);
+
+    // MAIN SLIDE
+
+    // SLIDES DESING
+
     for (let i = 7; i < rows.length; i += 2) {
       const slide = pres.addSlide();
 
@@ -33,10 +39,10 @@ workbook.xlsx
       if (rows[i]) {
         slide.addText(
           [
-            { text: `${i + 1}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
+            { text: `${i - 6}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
             { text: rows[i], options: { color: "FFFFFF", fontSize: 14 } }, // Color del texto
           ],
-          { x: 0.5, y: 0.5, align: "left" }
+          { x: 0.3, y: 2.5, align: "left" }
         );
       }
 
@@ -44,12 +50,42 @@ workbook.xlsx
       if (rows[i + 1]) {
         slide.addText(
           [
-            { text: `${i + 2}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
+            { text: `${i - 5}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
             { text: rows[i + 1], options: { color: "FFFFFF", fontSize: 14 } }, // Color del texto
           ],
-          { x: 0.5, y: 5.5, align: "left" }
+          { x: 0.3, y: 5.5, align: "left" }
         );
       }
+
+      // Agregar una franja naranja al top de la diapositiva
+      slide.addShape(pres.ShapeType.rect, {
+        x: 0.5,
+        y: 0.8,
+        w: 7.4,
+        h: 0.05,
+        fill: { color: "F39200" }, // Color naranja
+      });
+
+      // Agregar una franja naranja al pie de la diapositiva
+      slide.addShape(pres.ShapeType.rect, {
+        x: 0,
+        y: 10.6,
+        w: 8.5,
+        h: 0.23,
+        fill: { color: "F39200" }, // Color naranja
+      });
+
+      // Calcular el número de página
+      const pageNumber = Math.ceil((i - 5) / 2);
+
+      // Agregar el número de página en la franja naranja
+      slide.addText(`Página ${pageNumber} de ${totalPages}`, {
+        x: 1.4,
+        y: 10.71,
+        fontSize: 14,
+        color: "FFFFFF", // Color del texto (blanco)
+        align: "right",
+      });
     }
     // Determinar la ruta del archivo PowerPoint
     const excelDir = path.dirname(excelPath); // Obtener el directorio del archivo Excel
