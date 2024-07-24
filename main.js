@@ -2,16 +2,16 @@ const ExcelJS = require("exceljs");
 const PptxGenJS = require("pptxgenjs");
 const path = require("path");
 
-// Ruta del archivo Excel
+// excel path
 const excelPath =
   "assets/CONTROL 678_2024-1 - EVALUACIÓN - STP - CAMIÓN ALJIBE - LYLG-45.xlsx";
 
-// Crear una nueva presentación
+// new pptx
 const pres = new PptxGenJS();
 pres.defineLayout({ name: "Carta", width: 8.5, height: 11 });
 pres.layout = "Carta";
 
-// Leer el archivo Excel
+// reading xlsx
 const workbook = new ExcelJS.Workbook();
 workbook.xlsx
   .readFile(excelPath)
@@ -32,66 +32,66 @@ workbook.xlsx
     for (let i = 7; i < rows.length; i += 2) {
       const slide = pres.addSlide();
 
-      // Establecer el color de fondo de la diapositiva
-      slide.background = { color: "616161" }; // Cambia 'FFFFFF' por el color que desees
+      // background slide color
+      slide.background = { color: "616161" };
 
-      // Añadir la primera actividad (arriba izquierda)
+      // adding activitie n°1
       if (rows[i]) {
         slide.addText(
           [
-            { text: `${i - 6}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
-            { text: rows[i], options: { color: "FFFFFF", fontSize: 14 } }, // Color del texto
+            { text: `${i - 6}. `, options: { color: "#F39200", fontSize: 14 } },
+            { text: rows[i], options: { color: "FFFFFF", fontSize: 14 } },
           ],
           { x: 0.3, y: 2.5, align: "left" }
         );
       }
 
-      // Añadir la segunda actividad (centro izquierda)
+      // adding activitie n°2
       if (rows[i + 1]) {
         slide.addText(
           [
-            { text: `${i - 5}. `, options: { color: "#F39200", fontSize: 14 } }, // Color del número
-            { text: rows[i + 1], options: { color: "FFFFFF", fontSize: 14 } }, // Color del texto
+            { text: `${i - 5}. `, options: { color: "#F39200", fontSize: 14 } },
+            { text: rows[i + 1], options: { color: "FFFFFF", fontSize: 14 } },
           ],
           { x: 0.3, y: 5.5, align: "left" }
         );
       }
 
-      // Agregar una franja naranja al top de la diapositiva
+      // adding model
       slide.addShape(pres.ShapeType.rect, {
         x: 0.5,
         y: 0.8,
         w: 7.4,
         h: 0.05,
-        fill: { color: "F39200" }, // Color naranja
+        fill: { color: "F39200" },
       });
 
-      // Agregar una franja naranja al pie de la diapositiva
+      // adding model
       slide.addShape(pres.ShapeType.rect, {
         x: 0,
         y: 10.6,
         w: 8.5,
         h: 0.23,
-        fill: { color: "F39200" }, // Color naranja
+        fill: { color: "F39200" },
       });
 
-      // Calcular el número de página
+      // page number footer
       const pageNumber = Math.ceil((i - 5) / 2);
 
-      // Agregar el número de página en la franja naranja
+      // page number footer desing
       slide.addText(`Página ${pageNumber} de ${totalPages}`, {
         x: 1.4,
         y: 10.71,
         fontSize: 14,
-        color: "FFFFFF", // Color del texto (blanco)
+        color: "FFFFFF",
         align: "right",
       });
     }
-    // Determinar la ruta del archivo PowerPoint
-    const excelDir = path.dirname(excelPath); // Obtener el directorio del archivo Excel
-    const pptPath = path.join(excelDir, "archivo.pptx"); // Construir la ruta del archivo PowerPoint
+    // pptx patht
+    const excelDir = path.dirname(excelPath);
+    const pptPath = path.join(excelDir, "archivo.pptx");
 
-    // Guardar la presentación en PowerPoint
+    // save pptx
     pres
       .writeFile({ fileName: pptPath })
       .then(() => {
