@@ -42,7 +42,7 @@ workbook.xlsx
             { text: `${i - 6}. `, options: { color: "#F39200", fontSize: 14 } },
             { text: rows[i], options: { color: "FFFFFF", fontSize: 14 } },
           ],
-          { x: 0.3, y: 2.5, align: "left" }
+          { x: 0.3, y: 2.5, w: 8, h: 0.5, align: "left" }
         );
       }
 
@@ -53,11 +53,11 @@ workbook.xlsx
             { text: `${i - 5}. `, options: { color: "#F39200", fontSize: 14 } },
             { text: rows[i + 1], options: { color: "FFFFFF", fontSize: 14 } },
           ],
-          { x: 0.3, y: 5.5, align: "left" }
+          { x: 0.3, y: 6.5, w: 8, h: 0.5, align: "left" }
         );
       }
 
-      // adding model
+      // adding separator orange top
       slide.addShape(pres.ShapeType.rect, {
         x: 0.5,
         y: 0.8,
@@ -66,7 +66,25 @@ workbook.xlsx
         fill: { color: "F39200" },
       });
 
-      // adding model
+      // adding separator dark gary above activitie n°1
+      slide.addShape(pres.ShapeType.rect, {
+        x: 0.3,
+        y: 2.3,
+        w: 7.9,
+        h: 0.05,
+        fill: { color: "404040" },
+      });
+
+      // adding separator dark gary above activitie n°2
+      slide.addShape(pres.ShapeType.rect, {
+        x: 0.3,
+        y: 6.3,
+        w: 7.9,
+        h: 0.05,
+        fill: { color: "404040" },
+      });
+
+      // adding separator orange bottom
       slide.addShape(pres.ShapeType.rect, {
         x: 0,
         y: 10.6,
