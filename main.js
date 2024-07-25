@@ -42,7 +42,7 @@ workbook.xlsx
             { text: `${i - 6}. `, options: { color: "#F39200", fontSize: 14 } },
             { text: rows[i], options: { color: "FFFFFF", fontSize: 14 } },
           ],
-          { x: 0.3, y: 2.5, w: 8, h: 0.5, align: "left" }
+          { x: 0.3, y: 2.4, w: 8, h: 0.5, align: "left" }
         );
       }
 
@@ -53,9 +53,17 @@ workbook.xlsx
             { text: `${i - 5}. `, options: { color: "#F39200", fontSize: 14 } },
             { text: rows[i + 1], options: { color: "FFFFFF", fontSize: 14 } },
           ],
-          { x: 0.3, y: 6.5, w: 8, h: 0.5, align: "left" }
+          { x: 0.3, y: 6.4, w: 8, h: 0.5, align: "left" }
         );
       }
+
+      slide.addImage({
+        path: "assets/img/prominetLogo.png",
+        x: 0.4,
+        y: 0.2,
+        w: 1.5,
+        h: 0.5,
+      });
 
       // adding separator orange top
       slide.addShape(pres.ShapeType.rect, {
